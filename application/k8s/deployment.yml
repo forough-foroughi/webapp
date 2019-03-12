@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: webapp
+    tier: webapp
+  type: NodePort
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: webapp
+        tier: webapp
+    spec:
+      containers:
+      - image: test-image.itccloud.local:5000/webbapp:$BUILD_TAG
+        name: webapp
+        ports:
+        - containerPort: 80
+name: webapp

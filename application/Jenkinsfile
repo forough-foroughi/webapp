@@ -13,7 +13,7 @@ node {
 
     stage "Build"
     
-        sh "docker build -t ${imageName} -f application/Dockerfile application"
+        sh "docker build -t ${imageName} -f Jenkinsfile Dockerfile"
     
     stage "Push"
 
@@ -21,6 +21,6 @@ node {
 
     stage "Deploy"
 
-        kubernetesDeploy configs: "application/k8s/*.yml", kubeconfigId: 'kenzan_kubeconfig'
+        kubernetesDeploy configs: "applications/${appName}/k8s/*.yml", kubeconfigId: 'kenzan_kubeconfig'
 
 }
