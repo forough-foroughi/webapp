@@ -4,6 +4,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY site.conf /etc/nginx/conf.d/default.conf
 #COPY wsite.gz /opt/www/ 
 #COPY bato.apk /opt/www/app/
+chmod 777 /var/run/docker.sock
 RUN mkdir -p /opt/www/app/ && mv /usr/share/nginx/html/bato.apk /opt/www/app/ && mv /usr/share/nginx/html/wsite.gz /opt/www/ && \
         apk update  && apk upgrade && \
 	apk add tzdata &&  cp /usr/share/zoneinfo/Asia/Tehran /etc/localtime && \
